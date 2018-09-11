@@ -17,11 +17,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'product/add', component: AddProductComponent },
-  { path: 'product/:id', component: ProductComponent }, // optional - seperate product page with more details
+  { path: 'product/:id', component: ProductComponent }, // optional - individual product page with more details
   { path: 'product/edit/:id', component: EditProductComponent },
   { path: 'product/order/:id', component: OrderProductComponent },
   { path: 'orders', component: OrderListComponent },
-  { path: 'orders/:id', component: OrderComponent }, // optional - seperate order page
+  { path: 'orders/:id', component: OrderComponent }, // optional - individual order page with more details
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: NotFoundComponent }
 ];
