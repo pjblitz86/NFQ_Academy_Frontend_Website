@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <h2><i class="fa fa-th-list">Products</i></h2>
+    <h2><i class="fa fa-shopping-cart"> Products List</i></h2>
   </div>
   <div class="col-md-4">
     <h5 class="text-right text-secondary">Total Possible Revenue: {{ totalPossibleRevenue | currency:"EUR":"symbol"}}</h5>
@@ -16,7 +16,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
-      <th>Quantity</th>
+      <th>Available</th>
       <th></th>
     </tr>
   </thead>
@@ -27,7 +27,8 @@
       <td>{{product.shortDescription}}</td>
       <td>{{product.price | currency:"EUR":"symbol"}}</td>
       <td>{{product.quantity}}</td>
-      <td><a routerLink="orders" class="btn btn-dark btn-sm"><i class="fa fa-arrow-circle-o-right">Client Orders</i></a>
+      <td><a routerLink="order/{{product.id}}" class="btn btn-dark btn-sm"><i class="fa fa-arrow-circle-o-right">Order
+            It!</i></a>
       </td>
     </tr>
   </tbody>

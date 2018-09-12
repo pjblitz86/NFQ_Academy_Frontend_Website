@@ -1,3 +1,4 @@
+import { OrderFormComponent } from './components/order-form/order-form.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'product/add', component: AddProductComponent },
   { path: 'product/edit/:id', component: EditProductComponent },
   { path: 'orders', component: OrdersListComponent },
+  { path: 'order/:id', component: OrderFormComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', component: NotFoundComponent }
 ];

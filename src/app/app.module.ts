@@ -20,6 +20,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { OrderFormComponent } from './components/order-form/order-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     SettingsComponent,
     NotFoundComponent,
     SearchComponent,
-    DashboardComponent
+    DashboardComponent,
+    OrderFormComponent
   ],
   imports: [
     BrowserModule,
