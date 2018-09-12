@@ -9,11 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsListComponent implements OnInit {
   products: Product[];
-  totalSumOrdered: number;
+  totalPossibleRevenue: number;
 
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe(products => (this.products = products));
+    this.productService.getProducts().subscribe(products => {
+      this.products = products;
+      this.getTotalPossibleRevenue();
+    });
+  }
+
+  getTotalPossibleRevenue() {
+    this.totalPossibleRevenue = this.products.reduce((total, product) => {
+      const revenue = product.price * product.quantity;
+      return total + revenue;
+    }, 0);
   }
 }
