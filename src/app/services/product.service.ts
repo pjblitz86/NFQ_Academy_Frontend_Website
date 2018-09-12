@@ -31,8 +31,8 @@ export class ProductService {
     this.ordersCollection = this.afs.collection('orders', ref => ref.orderBy('productName', 'asc'));
   }
 
+  // Get all products with id
   getProducts(): Observable<Product[]> {
-    // Get clients with id
     this.products = this.productsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
@@ -45,6 +45,24 @@ export class ProductService {
     return this.products;
   }
 
+  // get 1 product by id
+  getProduct(id: string): Observable<Product> {
+    this.productDoc = this.afs.doc<Product>(`products/${id}`);
+    this.product = this.productDoc.snapshotChanges().pipe(
+      map(actions => {
+        if (actions.payload.exists === false) {
+          return null;
+        } else {
+          const data = actions.payload.data() as Product;
+          data.id = actions.payload.id;
+          return data;
+        }
+      })
+    );
+    return this.product;
+  }
+
+  // get all orders by id
   getOrders(): Observable<Order[]> {
     this.orders = this.ordersCollection.snapshotChanges().pipe(
       map(actions => {
@@ -58,6 +76,7 @@ export class ProductService {
     return this.orders;
   }
 
+  // add new product to firebase
   newProduct(product: Product) {
     this.productsCollection.add(product);
   }
