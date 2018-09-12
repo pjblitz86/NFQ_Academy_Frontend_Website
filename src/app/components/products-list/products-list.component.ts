@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsListComponent implements OnInit {
   products: Product[];
+  totalSumOrdered: number;
 
   constructor(private productService: ProductService) {}
 

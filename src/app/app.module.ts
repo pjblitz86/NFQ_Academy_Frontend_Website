@@ -7,16 +7,13 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { OrderListComponent } from './components/order-list/order-list.component';
+import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchComponent } from './components/search/search.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { OrderProductComponent } from './components/order-product/order-product.component';
-import { OrderComponent } from './components/order/order.component';
-import { ProductComponent } from './components/product/product.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -29,15 +26,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SidebarComponent,
     AddProductComponent,
     EditProductComponent,
-    OrderListComponent,
+    OrdersListComponent,
     LoginComponent,
     RegisterComponent,
     SettingsComponent,
     NotFoundComponent,
     SearchComponent,
-    OrderProductComponent,
-    OrderComponent,
-    ProductComponent
   ],
   imports: [
     BrowserModule,

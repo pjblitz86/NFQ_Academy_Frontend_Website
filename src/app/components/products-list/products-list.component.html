@@ -1,3 +1,36 @@
-<p>
-  products-list works!
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <h2><i class="fa fa-th-list">Products</i></h2>
+  </div>
+  <div class="col-md-6">
+    <h5 class="text-right text-secondary">Total Sum Ordered: {{ "xxx"| currency:"EUR":"symbol"}}</h5>
+  </div>
+</div>
+<table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{product.image}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.shortDescription}}</td>
+      <td>{{product.price | currency:"EUR":"symbol"}}</td>
+      <td>{{product.quantity}}</td>
+      <td><a routerLink="orders" class="btn btn-dark btn-sm"><i class="fa fa-arrow-circle-o-right">Client Orders</i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noProducts>
+  <hr>
+  <h5>There are no products in the database</h5>
+</ng-template>
