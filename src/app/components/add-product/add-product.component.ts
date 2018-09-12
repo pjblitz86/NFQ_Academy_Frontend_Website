@@ -1,3 +1,4 @@
+import { Product } from './../../models/Product';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
+  product: Product = {
+    image: '',
+    name: '',
+    shortDescription: '',
+    price: 0,
+    quantity: 0
+  };
 
-  constructor() { }
+  disablePriceOnAdd: boolean = false;
+  disableQuantityOnAdd: boolean = false;
 
-  ngOnInit() {
-  }
+  constructor() {}
 
+  ngOnInit() {}
 }

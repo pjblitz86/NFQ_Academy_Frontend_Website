@@ -1,3 +1,83 @@
-<p>
-  add-product works!
-</p>
+<!-- Link back to dashboard component -->
+<div class="row">
+  <div class="col-md-6">
+    <a routerLink="/" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i>Back To Products List
+    </a>
+  </div>
+  <div class="col-md-6">
+
+  </div>
+</div>
+
+<!-- I use angular template driven form approach,
+  other choice is reactive forms but is done programmatically and more advanced -->
+
+<div class="card">
+  <div class="card-header">
+    ADD NEW PRODUCT
+  </div>
+  <div class="card-body">
+    <form #productForm="ngForm">
+      <!-- (ngSubmit)="onSubmit(productForm)" -->
+      <!-- Image -->
+      <div class="form-group">
+        <label for="productImage">Image Url (optional)</label>
+        <input type="text" class="form-control" name="productImage" #productImage="ngModel" [(ngModel)]="product.image">
+      </div>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="productName">Name</label>
+        <input type="text" class="form-control" name="productName" #productName="ngModel" [ngClass]="{'is-invalid':productName.errors && productName.touched}"
+          [(ngModel)]="product.name" minlength="4" maxlength="32" required>
+        <div [hidden]="!productName.errors?.required" class="invalid-feedback">
+          Product name required!
+        </div>
+        <div [hidden]="!productName.errors?.minlength" class="invalid-feedback">
+          Must be at least 4 characters!
+        </div>
+      </div>
+
+      <!-- Short Description -->
+      <div class="form-group">
+        <label for="shortDescription">Short Description</label>
+        <input type="text" class="form-control" name="shortDescription" #shortDescription="ngModel" [ngClass]="{'is-invalid':shortDescription.errors && shortDescription.touched}"
+          [(ngModel)]="product.shortDescription" maxlength="64" required>
+        <div [hidden]="!shortDescription.errors?.required" class="invalid-feedback">
+          Description required!
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label for="productPrice">Price</label>
+        <input type="number" class="form-control" [(ngModel)]="product.price" name="productPrice" #productPrice="ngModel"
+          [ngClass]="{'is-invalid':productPrice.errors && productPrice.touched}" [disabled]="disablePriceOnAdd" step="0.01"
+          pattern="^[0-9]+(\.([0-9]{1,2})?)?$" required>
+        <div [hidden]="!productPrice.errors?.required" class="invalid-feedback">
+          Price required!
+        </div>
+        <div [hidden]="!productPrice.errors?.pattern" class="invalid-feedback">
+          Price must be greater than 0 with 2 precision
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="form-group">
+        <label for="productQuantity">Quantity</label>
+        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="productQuantity" [ngClass]="{'is-invalid':productQuantity.errors && productQuantity.touched}"
+          #productQuantity="ngModel" [disabled]="disableQuantityOnAdd" step="1" pattern="^[1-9]([0-9]+)?" required>
+        <div [hidden]="!productQuantity.errors?.required" class="invalid-feedback">
+          Quantity required!
+        </div>
+        <div [hidden]="!productQuantity.errors?.pattern" class="invalid-feedback">
+          Quantity must be integer and greater than 0
+        </div>
+      </div>
+
+      <input type="submit" value="Submit" class="btn btn-dark btn-block">
+
+    </form>
+  </div>
+</div>
