@@ -18,23 +18,23 @@
     ADD NEW PRODUCT
   </div>
   <div class="card-body">
-    <form #productForm="ngForm">
-      <!-- (ngSubmit)="onSubmit(productForm)" -->
+    <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+
       <!-- Image -->
       <div class="form-group">
-        <label for="productImage">Image Url (optional)</label>
-        <input type="text" class="form-control" name="productImage" #productImage="ngModel" [(ngModel)]="product.image">
+        <label for="image">Image Url (optional)</label>
+        <input type="text" class="form-control" name="image" #image="ngModel" [(ngModel)]="product.image">
       </div>
 
       <!-- Name -->
       <div class="form-group">
-        <label for="productName">Name</label>
-        <input type="text" class="form-control" name="productName" #productName="ngModel" [ngClass]="{'is-invalid':productName.errors && productName.touched}"
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" #name="ngModel" [ngClass]="{'is-invalid':name.errors && name.touched}"
           [(ngModel)]="product.name" minlength="4" maxlength="32" required>
-        <div [hidden]="!productName.errors?.required" class="invalid-feedback">
+        <div [hidden]="!name.errors?.required" class="invalid-feedback">
           Product name required!
         </div>
-        <div [hidden]="!productName.errors?.minlength" class="invalid-feedback">
+        <div [hidden]="!name.errors?.minlength" class="invalid-feedback">
           Must be at least 4 characters!
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div class="form-group">
         <label for="shortDescription">Short Description</label>
         <input type="text" class="form-control" name="shortDescription" #shortDescription="ngModel" [ngClass]="{'is-invalid':shortDescription.errors && shortDescription.touched}"
-          [(ngModel)]="product.shortDescription" maxlength="64" required>
+          [(ngModel)]="product.shortDescription" maxlength="127" required>
         <div [hidden]="!shortDescription.errors?.required" class="invalid-feedback">
           Description required!
         </div>
@@ -51,27 +51,26 @@
 
       <!-- Price -->
       <div class="form-group">
-        <label for="productPrice">Price</label>
-        <input type="number" class="form-control" [(ngModel)]="product.price" name="productPrice" #productPrice="ngModel"
-          [ngClass]="{'is-invalid':productPrice.errors && productPrice.touched}" [disabled]="disablePriceOnAdd" step="0.01"
-          pattern="^[0-9]+(\.([0-9]{1,2})?)?$" required>
-        <div [hidden]="!productPrice.errors?.required" class="invalid-feedback">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #price="ngModel" [ngClass]="{'is-invalid':price.errors && price.touched}"
+          [disabled]="disablePriceOnAdd" step="0.01" pattern="^[0-9]+(\.([0-9]{1,2})?)?$" required>
+        <div [hidden]="!price.errors?.required" class="invalid-feedback">
           Price required!
         </div>
-        <div [hidden]="!productPrice.errors?.pattern" class="invalid-feedback">
+        <div [hidden]="!price.errors?.pattern" class="invalid-feedback">
           Price must be greater than 0 with 2 precision
         </div>
       </div>
 
       <!-- Quantity -->
       <div class="form-group">
-        <label for="productQuantity">Quantity</label>
-        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="productQuantity" [ngClass]="{'is-invalid':productQuantity.errors && productQuantity.touched}"
-          #productQuantity="ngModel" [disabled]="disableQuantityOnAdd" step="1" pattern="^[1-9]([0-9]+)?" required>
-        <div [hidden]="!productQuantity.errors?.required" class="invalid-feedback">
+        <label for="quantity">Quantity</label>
+        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity" [ngClass]="{'is-invalid':quantity.errors && quantity.touched}"
+          #quantity="ngModel" step="1" pattern="^[1-9]([0-9]+)?" required>
+        <div [hidden]="!quantity.errors?.required" class="invalid-feedback">
           Quantity required!
         </div>
-        <div [hidden]="!productQuantity.errors?.pattern" class="invalid-feedback">
+        <div [hidden]="!quantity.errors?.pattern" class="invalid-feedback">
           Quantity must be integer and greater than 0
         </div>
       </div>

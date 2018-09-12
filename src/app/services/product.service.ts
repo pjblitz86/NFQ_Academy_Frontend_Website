@@ -36,4 +36,8 @@ export class ProductService {
     );
     return this.products;
   }
+
+  newProduct(product: Product) {
+    this.productsCollection.add(product);
+  }
 }
