@@ -22,8 +22,7 @@ export class OrdersListComponent implements OnInit {
 
   getTotalOrderRevenue() {
     this.totalOrderRevenue = this.orders.reduce((total, order) => {
-      const revenue = order.price * order.quantityOrdered;
-      return total + revenue;
+      return total + order.totalPrice;
     }, 0);
   }
 }

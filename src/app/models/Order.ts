@@ -2,6 +2,7 @@ export interface Order {
   id?: string;
   productName?: string;
   userEmail?: string;
-  price?: number;
+  unitPrice?: number;
   quantityOrdered?: number;
+  totalPrice?: number;
 }
