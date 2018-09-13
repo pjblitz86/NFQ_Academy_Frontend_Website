@@ -3,6 +3,7 @@ import { Product } from './../../models/Product';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Order } from '../../models/Order';
 
 @Component({
   selector: 'app-order-form',
@@ -13,6 +14,14 @@ export class OrderFormComponent implements OnInit {
   id: string;
   product: Product;
   isAvailable: boolean = true;
+  // order: Order = {
+  //   image: '',
+  //   name: '',
+  //   shortDescription: '',
+  //   price: 0,
+  //   quantity: 0
+  // };
+
 
   constructor(
     private productService: ProductService,
@@ -33,5 +42,25 @@ export class OrderFormComponent implements OnInit {
       }
       this.product = product;
     });
+  }
+
+  onSubmitOrder({ value, valid }: { value: Product; valid: boolean }) {
+    if (!valid) {
+      // show error flash message
+      this.flashMessage.show('Please enter your quantity correctly', {
+        cssClass: 'alert-danger',
+        timeout: 4000
+      });
+    } else {
+      // // add new order
+      // this.productService.newOrder(value);
+      // // show success message
+      // this.flashMessage.show("Your Order has been reserved! We'll contact you soon...", {
+      //   cssClass: 'alert-success',
+      //   timeout: 6000
+      // });
+      // redirect to clients order list
+      this.router.navigate(['/orders']);
+    }
   }
 }

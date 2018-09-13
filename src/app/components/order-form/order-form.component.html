@@ -9,3 +9,62 @@
 
   </div>
 </div>
+
+<div class="card">
+  <div class="card-header">
+    Order <strong>{{product.name}}</strong>
+  </div>
+  <div class="card-body">
+    <form #orderForm="ngForm" (ngSubmit)="onSubmitOrder(orderForm)">
+
+      <!-- Client email - not editable selected from loggedin user-->
+      <div class="form-group">
+        <label for="user">Email</label>
+        <input type="text" class="form-control" name="user" #user="ngModel" [(ngModel)]="product.image" disabled>
+      </div>
+
+      <!-- Product Name - not editable - selected from product id -->
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" name="name" #name="ngModel" [ngClass]="{'is-invalid':name.errors && name.touched}"
+          [(ngModel)]="product.name" disabled>
+      </div>
+
+      <!-- Short Description - not editable selected from model -->
+      <div class="form-group">
+        <label for="shortDescription">Short Description</label>
+        <input type="text" class="form-control" name="shortDescription" #shortDescription="ngModel" [(ngModel)]="product.shortDescription"
+          disabled>
+      </div>
+
+      <!-- Price - edit disabled fetched from model -->
+      <div class="form-group">
+        <label for="price">Your Price</label>
+        <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #price="ngModel" disabled>
+      </div>
+
+      <!-- Quantity available - edit disabled fetched from model -->
+      <div class="form-group">
+        <label for="quantity"><strong>Available Quantity</strong></label>
+        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity" #quantity="ngModel"
+          disabled>
+      </div>
+
+      <!-- Quantity Ordered - validate that after order quantity available is not < 0 -->
+      <div class="form-group">
+        <label for="quantity"><strong>Enter Your Quantity</strong></label>
+        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity" [ngClass]="{'is-invalid':quantity.errors && quantity.touched}"
+          #quantity="ngModel" step="1" pattern="^[1-9]([0-9]+)?" required>
+        <div [hidden]="!quantity.errors?.required" class="invalid-feedback">
+          Quantity required!
+        </div>
+        <div [hidden]="!quantity.errors?.pattern" class="invalid-feedback">
+          Quantity must be integer and greater than 0
+        </div>
+      </div>
+
+      <input type="submit" value="Submit Your Order" class="btn btn-dark btn-block">
+
+    </form>
+  </div>
+</div>
