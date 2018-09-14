@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
@@ -11,20 +12,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: ProductsListComponent },
+  { path: '', component: ProductsListComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'product/add', component: AddProductComponent },
-  { path: 'product/edit/:id', component: EditProductComponent },
-  { path: 'orders', component: OrdersListComponent },
-  { path: 'order/:id', component: OrderFormComponent },
-  { path: 'settings', component: SettingsComponent },
+  { path: 'product/add', component: AddProductComponent, canActivate: [AuthGuard] },
+  { path: 'product/edit/:id', component: EditProductComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersListComponent, canActivate: [AuthGuard] },
+  { path: 'order/:id', component: OrderFormComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  declarations: []
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}
