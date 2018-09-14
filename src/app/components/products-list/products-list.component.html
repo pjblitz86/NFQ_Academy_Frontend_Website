@@ -33,8 +33,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td><img id="productImage" src="{{product.image}}" onError="this.onError = null; this.src='../../../assets/img/download.png';"
-          alt="image not available"></td>
+      <td>
+        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available"></td>
       <td>{{product.name}}</td>
       <td>{{product.shortDescription}}</td>
       <td>{{product.price | currency:"EUR":"symbol"}}</td>

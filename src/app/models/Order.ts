@@ -1,7 +1,8 @@
 export interface Order {
   id?: string;
   productName?: string;
-  userEmail?: string;
+  clientName?: string;
+  clientContact?: string;
   unitPrice?: number;
   quantityOrdered?: number;
   totalPrice?: number;

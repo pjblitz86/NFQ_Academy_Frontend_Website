@@ -1,4 +1,4 @@
-<!-- Link back to dashboard component -->
+<!-- Link back to products-list component -->
 <div class="row">
   <div class="col-md-6">
     <a routerLink="/" class="btn btn-link">
@@ -17,23 +17,36 @@
   <div class="card-body">
     <form #orderForm="ngForm" (ngSubmit)="onSubmitOrder(orderForm)">
 
-      <!-- Client email - not editable selected from loggedin user-->
+      <!-- Client Name - required -->
       <div class="form-group">
-        <label for="user">Email</label>
-        <input type="text" class="form-control" name="user" #user="ngModel" [(ngModel)]="product.image" disabled>
+        <label for="clientName">Enter Your Name</label>
+        <input type="text" class="form-control" name="clientName" #clientName="ngModel" [ngClass]="{'is-invalid':clientName.errors && clientName.touched}"
+          [(ngModel)]="order.clientName" minlength="4" maxlength="32" required>
+        <div [hidden]="!clientName.errors?.required" class="invalid-feedback">
+          Your name is required!
+        </div>
+        <div [hidden]="!clientName.errors?.minlength" class="invalid-feedback">
+          Must be at least 4 characters!
+        </div>
+      </div>
+
+      <!-- Client Contact - required -->
+      <div class="form-group">
+        <label for="clientContact">Your Contact Info</label>
+        <input type="text" class="form-control" name="clientContact" #clientContact="ngModel" [ngClass]="{'is-invalid':clientContact.errors && clientContact.touched}"
+          [(ngModel)]="order.clientContact" minlength="4" maxlength="64" required>
+        <div [hidden]="!clientContact.errors?.required" class="invalid-feedback">
+          Your contact is required!
+        </div>
+        <div [hidden]="!clientContact.errors?.minlength" class="invalid-feedback">
+          Must be at least 4 characters!
+        </div>
       </div>
 
       <!-- Product Name - not editable - selected from product id -->
       <div class="form-group">
-        <label for="name">Product Name</label>
-        <input type="text" class="form-control" name="name" #name="ngModel" [ngClass]="{'is-invalid':name.errors && name.touched}"
-          [(ngModel)]="product.name" disabled>
-      </div>
-
-      <!-- Short Description - not editable selected from model -->
-      <div class="form-group">
-        <label for="shortDescription">Short Description</label>
-        <input type="text" class="form-control" name="shortDescription" #shortDescription="ngModel" [(ngModel)]="product.shortDescription"
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" name="productName" #productName="ngModel" [(ngModel)]="product.name"
           disabled>
       </div>
 
@@ -45,20 +58,20 @@
 
       <!-- Quantity available - edit disabled fetched from model -->
       <div class="form-group">
-        <label for="quantity"><strong>Available Quantity</strong></label>
-        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity" #quantity="ngModel"
+        <label for="quantityAvail"><strong>Available Quantity</strong></label>
+        <input type="number" class="form-control" name="quantityAvail" #quantityAvail="ngModel" [(ngModel)]="product.quantity"
           disabled>
       </div>
 
-      <!-- Quantity Ordered - validate that after order quantity available is not < 0 -->
+      <!-- Quantity Ordered - validate that ordered cannot exceeed available -->
       <div class="form-group">
-        <label for="quantity"><strong>Enter Your Quantity</strong></label>
-        <input type="number" class="form-control" [(ngModel)]="product.quantity" name="quantity" [ngClass]="{'is-invalid':quantity.errors && quantity.touched}"
-          #quantity="ngModel" step="1" pattern="^[1-9]([0-9]+)?" required>
-        <div [hidden]="!quantity.errors?.required" class="invalid-feedback">
+        <label for="quantityOrdered"><strong>Enter Your Quantity</strong></label>
+        <input type="number" (change)="checkAvailability()" class="form-control" name="quantityOrdered" [ngClass]="{'is-invalid':quantityOrdered.errors && quantityOrdered.touched}"
+          #quantityOrdered="ngModel" step="1" pattern="^[1-9]([0-9]+)?" [(ngModel)]="order.quantityOrdered" required>
+        <div [hidden]="!quantityOrdered.errors?.required" class="invalid-feedback">
           Quantity required!
         </div>
-        <div [hidden]="!quantity.errors?.pattern" class="invalid-feedback">
+        <div [hidden]="!quantityOrdered.errors?.pattern" class="invalid-feedback">
           Quantity must be integer and greater than 0
         </div>
       </div>

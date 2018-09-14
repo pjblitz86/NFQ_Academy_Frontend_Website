@@ -14,13 +14,14 @@ export class OrderFormComponent implements OnInit {
   id: string;
   product: Product;
   isAvailable: boolean = true;
-  // order: Order = {
-  //   image: '',
-  //   name: '',
-  //   shortDescription: '',
-  //   price: 0,
-  //   quantity: 0
-  // };
+  order: Order = {
+    productName: '',
+    clientName: '',
+    clientContact: '',
+    unitPrice: 0,
+    quantityOrdered: 0,
+    totalPrice: 0
+  };
 
   @ViewChild('orderForm')
   form: any;
@@ -46,10 +47,16 @@ export class OrderFormComponent implements OnInit {
     });
   }
 
+  checkAvailability() {
+    if (this.order.quantityOrdered > this.product.quantity) {
+      this.order.quantityOrdered = this.product.quantity;
+    }
+  }
+
   onSubmitOrder({ value, valid }: { value: Product; valid: boolean }) {
     if (!valid) {
       // show error flash message
-      this.flashMessage.show('Please enter your quantity correctly', {
+      this.flashMessage.show('Please fill out the order form correctly', {
         cssClass: 'alert-danger',
         timeout: 4000
       });
