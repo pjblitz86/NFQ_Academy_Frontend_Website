@@ -1,7 +1,7 @@
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Product } from './../../models/Product';
 import { ProductService } from './../../services/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Order } from '../../models/Order';
 
@@ -22,6 +22,8 @@ export class OrderFormComponent implements OnInit {
   //   quantity: 0
   // };
 
+  @ViewChild('orderForm')
+  form: any;
 
   constructor(
     private productService: ProductService,
