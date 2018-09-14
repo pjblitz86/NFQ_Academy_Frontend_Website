@@ -80,4 +80,16 @@ export class ProductService {
   newProduct(product: Product) {
     this.productsCollection.add(product);
   }
+
+  // update product to firebase
+  updateProduct(product: Product) {
+    // this.productDoc = this.afs.doc(`product/edit/${product.id}`);
+    this.productDoc.update(product);
+  }
+
+  // delete clicked product
+  deleteProduct(id: string) {
+    this.productDoc = this.afs.collection('products').doc(id);
+    this.productDoc.delete();
+  }
 }

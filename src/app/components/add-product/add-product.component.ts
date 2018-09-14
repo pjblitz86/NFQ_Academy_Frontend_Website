@@ -46,7 +46,7 @@ export class AddProductComponent implements OnInit {
       // add new product
       this.productService.newProduct(value);
       // show success message
-      this.flashMessage.show('New Product Added Successfully', {
+      this.flashMessage.show('New Product Added!', {
         cssClass: 'alert-success',
         timeout: 4000
       });

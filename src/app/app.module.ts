@@ -17,7 +17,6 @@ import { AppRoutingModule } from './/app-routing.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { OrderFormComponent } from './components/order-form/order-form.component';
@@ -36,7 +35,6 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     SettingsComponent,
     NotFoundComponent,
     SearchComponent,
-    DashboardComponent,
     OrderFormComponent
   ],
   imports: [

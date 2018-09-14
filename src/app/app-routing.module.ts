@@ -1,5 +1,5 @@
+import { ProductsListComponent } from './components/products-list/products-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -11,7 +11,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: ProductsListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'product/add', component: AddProductComponent },
