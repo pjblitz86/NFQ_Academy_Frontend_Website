@@ -28,7 +28,7 @@ export class ProductService {
 
   constructor(private afs: AngularFirestore) {
     this.productsCollection = this.afs.collection('products', ref => ref.orderBy('name', 'asc'));
-    this.ordersCollection = this.afs.collection('orders', ref => ref.orderBy('productName', 'asc'));
+    this.ordersCollection = this.afs.collection('orders', ref => ref.orderBy('clientName', 'asc'));
   }
 
   // Get all products with id
@@ -79,6 +79,10 @@ export class ProductService {
   // add new product to firebase
   newProduct(product: Product) {
     this.productsCollection.add(product);
+  }
+
+  newOrder(order: Order) {
+    this.ordersCollection.add(order);
   }
 
   // update product to firebase

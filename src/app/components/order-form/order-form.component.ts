@@ -12,15 +12,22 @@ import { Order } from '../../models/Order';
 })
 export class OrderFormComponent implements OnInit {
   id: string;
-  product: Product;
   isAvailable: boolean = true;
   order: Order = {
-    productName: '',
-    clientName: '',
-    clientContact: '',
+    productName: ' ',
+    clientName: ' ',
+    clientContact: ' ',
     unitPrice: 0,
     quantityOrdered: 0,
     totalPrice: 0
+  };
+
+  product: Product = {
+    image: '',
+    name: '',
+    shortDescription: '',
+    price: 0,
+    quantity: 0
   };
 
   @ViewChild('orderForm')
@@ -51,9 +58,11 @@ export class OrderFormComponent implements OnInit {
     if (this.order.quantityOrdered > this.product.quantity) {
       this.order.quantityOrdered = this.product.quantity;
     }
+    // calculate total price
+    this.order.totalPrice = this.order.quantityOrdered * this.product.price;
   }
 
-  onSubmitOrder({ value, valid }: { value: Product; valid: boolean }) {
+  onSubmitOrder({ value, valid }: { value: Order; valid: boolean }) {
     if (!valid) {
       // show error flash message
       this.flashMessage.show('Please fill out the order form correctly', {
@@ -61,13 +70,16 @@ export class OrderFormComponent implements OnInit {
         timeout: 4000
       });
     } else {
-      // // add new order
-      // this.productService.newOrder(value);
-      // // show success message
-      // this.flashMessage.show("Your Order has been reserved! We'll contact you soon...", {
-      //   cssClass: 'alert-success',
-      //   timeout: 6000
-      // });
+      // add new order
+      this.productService.newOrder(value);
+      // update available product quantity
+      this.product.quantity -= this.order.quantityOrdered;
+      this.productService.updateProduct(this.product);
+      // show success message
+      this.flashMessage.show('Order Added Successfully!', {
+        cssClass: 'alert-success',
+        timeout: 4000
+      });
       // redirect to clients order list
       this.router.navigate(['/orders']);
     }

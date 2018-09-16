@@ -28,15 +28,16 @@
       <th>Total Price</th>
     </tr>
   </thead>
-  <!-- Come back here once auth is implemented -->
-  <!-- <tbody>
+  <tbody>
     <tr *ngFor="let order of orders">
-      <td>{{product.name}}</td>
-      <td>{{product.shortDescription}}</td>
-      <td>{{product.price | currency:"EUR":"symbol"}}</td>
-      <td>{{product.quantity}}</td>
+      <td>{{order.clientName}}</td>
+      <td>{{order.clientContact}}</td>
+      <td>{{order.productName}}</td>
+      <td>{{order.unitPrice}}</td>
+      <td>{{order.quantityOrdered}}</td>
+      <td>{{order.totalPrice | currency:"EUR":"symbol"}}</td>
     </tr>
-  </tbody> -->
+  </tbody>
 </table>
 
 <ng-template #noOrders>

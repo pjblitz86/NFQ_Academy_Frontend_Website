@@ -3,7 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ProductsListComponent } from './components/products-list/products-list.component';
+import {
+  ProductsListComponent,
+  ProductFilter
+} from './components/products-list/products-list.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
@@ -35,7 +38,8 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     SettingsComponent,
     NotFoundComponent,
     SearchComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    ProductFilter
   ],
   imports: [
     BrowserModule,

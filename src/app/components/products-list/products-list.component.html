@@ -1,69 +1,67 @@
 <div class="row">
   <div class="col-md-8">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-4">
         <h2><i class="fa fa-shopping-cart"> Products List</i></h2>
       </div>
-      <div class="col-md-7 mx-auto">
-        <form class="form-inline">
-          <input id="search-input" class="form-control mr-sm-2 border border-dark" type="search" placeholder="Search Products..."
-            aria-label="Search">
-          <button id="search-button" class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-        </form>
+      <div class="form-group col-md-4 mx-auto">
+        <input class="form-control mr-sm-2 border border-dark" type="text" placeholder="Search product by name..."
+          [(ngModel)]="searchTerm">
+        <div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h5 class="text-right text-secondary">Equity: {{ totalPossibleRevenue | currency:"EUR":"symbol"}}</h5>
+      </div>
+      <div class="col-md-2">
+        <app-sidebar></app-sidebar>
       </div>
     </div>
-  </div>
-  <div class="col-md-2">
-    <h5 class="text-right text-secondary">Equity: {{ totalPossibleRevenue | currency:"EUR":"symbol"}}</h5>
-  </div>
-  <div class="col-md-2">
-    <app-sidebar></app-sidebar>
-  </div>
-</div>
-<table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
-  <thead class="thead-inverse">
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Available</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of products">
-      <td>
-        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available"></td>
-      <td>{{product.name}}</td>
-      <td>{{product.shortDescription}}</td>
-      <td>{{product.price | currency:"EUR":"symbol"}}</td>
-      <td>{{product.quantity}}</td>
-      <td>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
-              Edit
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Available</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products | productFilter: searchTerm">
+          <td>
+            <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
+          </td>
+          <td>{{product.name}}</td>
+          <td>{{product.shortDescription}}</td>
+          <td>{{product.price | currency:"EUR":"symbol"}}</td>
+          <td>{{product.quantity}}</td>
+          <td>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
+                  Edit
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-<ng-template #noProducts>
-  <hr>
-  <h5>There are no products in the database</h5>
-</ng-template>
+    <ng-template #noProducts>
+      <hr>
+      <h5>There are no products in the database</h5>
+    </ng-template>

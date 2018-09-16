@@ -3,6 +3,7 @@ import { Product } from './../../models/Product';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { PipeTransform, Pipe } from '@angular/core';
 
 @Component({
   selector: 'app-products-list',
@@ -13,6 +14,7 @@ export class ProductsListComponent implements OnInit {
   id: string;
   products: Product[];
   product: Product;
+  searchTerm: string;
   totalPossibleRevenue: number;
 
   constructor(
@@ -46,5 +48,20 @@ export class ProductsListComponent implements OnInit {
       });
       this.router.navigate(['/']);
     }
+  }
+}
+
+@Pipe({
+  name: 'productFilter'
+})
+export class ProductFilter implements PipeTransform {
+  transform(products: Product[], searchTerm: string): Product[] {
+    if (!products || !searchTerm) {
+      return products;
+    }
+
+    return products.filter(
+      product => product.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+    );
   }
 }

@@ -1,7 +1,7 @@
 <!-- Link back to products-list component -->
 <div class="row">
   <div class="col-md-6">
-    <a routerLink="/" class="btn btn-link">
+    <a routerLink="" class="btn btn-link">
       <i class="fa fa-arrow-circle-o-left"></i> Back To Products List
     </a>
   </div>
@@ -12,7 +12,7 @@
 
 <div class="card">
   <div class="card-header">
-    Order <strong>{{product.name}}</strong>
+    Order <strong>{{product?.name}}</strong>
   </div>
   <div class="card-body">
     <form #orderForm="ngForm" (ngSubmit)="onSubmitOrder(orderForm)">
@@ -20,12 +20,12 @@
       <!-- Client Name - required -->
       <div class="form-group">
         <label for="clientName">Enter Your Name</label>
-        <input type="text" class="form-control" name="clientName" #clientName="ngModel" [ngClass]="{'is-invalid':clientName.errors && clientName.touched}"
+        <input type="text" class="form-control" name="clientName" #clientFullName="ngModel" [ngClass]="{'is-invalid':clientFullName.errors && clientFullName.touched}"
           [(ngModel)]="order.clientName" minlength="4" maxlength="32" required>
-        <div [hidden]="!clientName.errors?.required" class="invalid-feedback">
+        <div [hidden]="!clientFullName.errors?.required" class="invalid-feedback">
           Your name is required!
         </div>
-        <div [hidden]="!clientName.errors?.minlength" class="invalid-feedback">
+        <div [hidden]="!clientFullName.errors?.minlength" class="invalid-feedback">
           Must be at least 4 characters!
         </div>
       </div>
@@ -33,47 +33,56 @@
       <!-- Client Contact - required -->
       <div class="form-group">
         <label for="clientContact">Your Contact Info</label>
-        <input type="text" class="form-control" name="clientContact" #clientContact="ngModel" [ngClass]="{'is-invalid':clientContact.errors && clientContact.touched}"
-          [(ngModel)]="order.clientContact" minlength="4" maxlength="64" required>
-        <div [hidden]="!clientContact.errors?.required" class="invalid-feedback">
-          Your contact is required!
+        <input type="text" class="form-control" name="clientContact" #clientContactInfo="ngModel" [ngClass]="{'is-invalid':clientContactInfo.errors && clientContactInfo.touched}"
+          [(ngModel)]="order.clientContact" [ngModelOptions]="{name: ''}" minlength="4" maxlength="64" required>
+        <div [hidden]="!clientContactInfo.errors?.required" class="invalid-feedback">
+          Your contact info is required!
         </div>
-        <div [hidden]="!clientContact.errors?.minlength" class="invalid-feedback">
+        <div [hidden]="!clientContactInfo.errors?.minlength" class="invalid-feedback">
           Must be at least 4 characters!
         </div>
       </div>
 
       <!-- Product Name - not editable - selected from product id -->
       <div class="form-group">
-        <label for="productName">Product Name</label>
-        <input type="text" class="form-control" name="productName" #productName="ngModel" [(ngModel)]="product.name"
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" name="name" #productFullName="ngModel" [(ngModel)]="product.name"
           disabled>
       </div>
 
       <!-- Price - edit disabled fetched from model -->
       <div class="form-group">
         <label for="price">Your Price</label>
-        <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #price="ngModel" disabled>
+        <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #productPrice="ngModel"
+          disabled>
       </div>
 
       <!-- Quantity available - edit disabled fetched from model -->
       <div class="form-group">
-        <label for="quantityAvail"><strong>Available Quantity</strong></label>
-        <input type="number" class="form-control" name="quantityAvail" #quantityAvail="ngModel" [(ngModel)]="product.quantity"
+        <label for="quantity"><strong>Available Quantity</strong></label>
+        <input type="number" class="form-control" name="quantity" #quantityAvailable="ngModel" [(ngModel)]="product.quantity"
           disabled>
       </div>
 
       <!-- Quantity Ordered - validate that ordered cannot exceeed available -->
       <div class="form-group">
         <label for="quantityOrdered"><strong>Enter Your Quantity</strong></label>
-        <input type="number" (change)="checkAvailability()" class="form-control" name="quantityOrdered" [ngClass]="{'is-invalid':quantityOrdered.errors && quantityOrdered.touched}"
-          #quantityOrdered="ngModel" step="1" pattern="^[1-9]([0-9]+)?" [(ngModel)]="order.quantityOrdered" required>
-        <div [hidden]="!quantityOrdered.errors?.required" class="invalid-feedback">
+        <input type="number" (change)="checkAvailability()" class="form-control" name="quantityOrdered" [ngClass]="{'is-invalid':quantityClientOrdered.errors && quantityClientOrdered.touched}"
+          #quantityClientOrdered="ngModel" step="1" pattern="^[1-9]([0-9]+)?" [(ngModel)]="order.quantityOrdered"
+          required>
+        <div [hidden]="!quantityClientOrdered.errors?.required" class="invalid-feedback">
           Quantity required!
         </div>
-        <div [hidden]="!quantityOrdered.errors?.pattern" class="invalid-feedback">
+        <div [hidden]="!quantityClientOrdered.errors?.pattern" class="invalid-feedback">
           Quantity must be integer and greater than 0
         </div>
+      </div>
+
+      <!-- Total price disabled calculated -->
+      <div class="form-group">
+        <label for="totalPrice"><strong>Total Price</strong></label>
+        <input type="number" class="form-control" name="totalPrice" #totalPrice="ngModel" [(ngModel)]="order.totalPrice"
+          disabled>
       </div>
 
       <input type="submit" value="Submit Your Order" class="btn btn-dark btn-block">
