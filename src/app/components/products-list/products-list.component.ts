@@ -2,8 +2,9 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { Product } from './../../models/Product';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-products-list',
@@ -15,12 +16,14 @@ export class ProductsListComponent implements OnInit {
   products: Product[];
   product: Product;
   searchTerm: string;
+  totalProducts = 10;
+  productsPerPage = 2;
+  pageSizeOptions = [1, 2, 4];
   totalPossibleRevenue: number;
 
   constructor(
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute,
     private flashMessage: FlashMessagesService
   ) {}
 
@@ -49,6 +52,8 @@ export class ProductsListComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
+
+  onChangedPage(pageData: PageEvent) {}
 }
 
 @Pipe({

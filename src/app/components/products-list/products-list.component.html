@@ -58,6 +58,10 @@
   </tbody>
 </table>
 
+<mat-paginator [length]="totalProducts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)">
+
+</mat-paginator>
+
 <ng-template #noProducts>
   <hr>
   <h5>There are no products in the database</h5>
