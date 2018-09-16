@@ -1,22 +1,17 @@
 <div class="row">
-  <div class="col-md-9">
-    <div class="row">
-      <div class="col-md-5">
-        <h2><i class="fa fa-th-list"> Client Order List</i></h2>
-      </div>
-      <div class="col-md-7 mx-auto">
-        <form class="form-inline">
-          <input id="search-input" class="form-control mr-sm-2 border border-dark" type="search" placeholder="Search Orders..."
-            aria-label="Search">
-          <button id="search-button" class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
+  <div class="col-md-5">
+    <h2><i class="fa fa-th-list"> Client Order List</i></h2>
+  </div>
+  <div class="form-group col-md-4 mx-auto">
+    <input class="form-control mr-sm-2 border border-dark" type="text" placeholder="Search by client name..."
+      [(ngModel)]="searchTerm">
   </div>
   <div class="col-md-3">
     <h5 class="text-right text-secondary">Total Order Revenue: {{ totalOrderRevenue | currency:"EUR":"symbol"}}</h5>
   </div>
 </div>
+
+
 <table *ngIf="orders?.length > 0; else noOrders" class="table table-striped">
   <thead class="thead-inverse">
     <tr>
@@ -29,7 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders">
+    <tr *ngFor="let order of orders | orderFilter: searchTerm">
       <td>{{order.clientName}}</td>
       <td>{{order.clientContact}}</td>
       <td>{{order.productName}}</td>

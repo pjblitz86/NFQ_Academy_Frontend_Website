@@ -2,6 +2,7 @@ import { ProductService } from './../../services/product.service';
 import { Order } from './../../models/Order';
 import { Product } from './../../models/Product';
 import { Component, OnInit } from '@angular/core';
+import { PipeTransform, Pipe } from '@angular/core';
 
 @Component({
   selector: 'app-orders-list',
@@ -12,6 +13,7 @@ export class OrdersListComponent implements OnInit {
   orders: Order[];
   products: Product[];
   totalOrderRevenue: number;
+  searchTerm: string;
 
   constructor(private productService: ProductService) {}
 
@@ -31,5 +33,20 @@ export class OrdersListComponent implements OnInit {
     this.totalOrderRevenue = this.orders.reduce((total, order) => {
       return total + order.totalPrice;
     }, 0);
+  }
+}
+
+@Pipe({
+  name: 'orderFilter'
+})
+export class OrderFilter implements PipeTransform {
+  transform(orders: Order[], searchTerm: string): Order[] {
+    if (!orders || !searchTerm) {
+      return orders;
+    }
+
+    return orders.filter(
+      order => order.clientName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+    );
   }
 }

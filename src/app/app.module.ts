@@ -10,7 +10,7 @@ import {
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { OrdersListComponent } from './components/orders-list/orders-list.component';
+import { OrdersListComponent, OrderFilter } from './components/orders-list/orders-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -39,7 +39,8 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     NotFoundComponent,
     SearchComponent,
     OrderFormComponent,
-    ProductFilter
+    ProductFilter,
+    OrderFilter
   ],
   imports: [
     BrowserModule,
