@@ -12,25 +12,25 @@
 </div>
 
 
-<table *ngIf="orders?.length > 0; else noOrders" class="table table-striped">
+<table *ngIf="orders?.length > 0; else noOrders" class="table table-sm table-hover table-striped table-bordered">
   <thead class="thead-inverse">
-    <tr>
+    <tr class="table-success">
       <th>Client</th>
       <th>Contact</th>
       <th>Product Name</th>
-      <th>Unit Price</th>
-      <th>Ordered</th>
-      <th>Total Price</th>
+      <th class="align-right">Unit Price</th>
+      <th class="align-right">Ordered</th>
+      <th class="align-right">Total Price</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders | orderFilter: searchTerm">
+    <tr *ngFor="let order of orders | orderFilter: searchTerm" class="table-light">
       <td>{{order.clientName}}</td>
       <td>{{order.clientContact}}</td>
       <td>{{order.productName}}</td>
-      <td>{{order.unitPrice | currency:"EUR":"symbol" }}</td>
-      <td>{{order.quantityOrdered}}</td>
-      <td>{{order.totalPrice | currency:"EUR":"symbol"}}</td>
+      <td class="align-right">{{order.unitPrice | currency:"EUR":"symbol" }}</td>
+      <td class="align-right">{{order.quantityOrdered}}</td>
+      <td class="align-right">{{order.totalPrice | currency:"EUR":"symbol"}}</td>
     </tr>
   </tbody>
 </table>

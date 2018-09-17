@@ -14,51 +14,51 @@
   </div>
 </div>
 
-<div class="container">
-  <table *ngIf="products?.length > 0; else noProducts" class="table table-striped products-table">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Available</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of pagedItems | productFilter: searchTerm">
-        <td>
-          <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
-        </td>
-        <td>{{product.name}}</td>
-        <td>{{product.shortDescription}}</td>
-        <td>{{product.price | currency:"EUR":"symbol"}}</td>
-        <td>{{product.quantity}}</td>
-        <td>
-          <div class="row">
-            <div class="col-md-12 col-sm-12">
-              <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
-              </a>
-            </div>
+
+<table *ngIf="products?.length > 0; else noProducts" class="table products-table table-hover">
+  <thead class="thead-inverse thead-light">
+    <tr class="header-table">
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th class="dont-align">Price</th>
+      <th class="dont-align">Available</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of pagedItems | productFilter: searchTerm">
+      <td>
+        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
+      </td>
+      <td id="product-name">{{product.name}} <br><span id="sold-out" *ngIf="product.quantity == 0">SOLD-OUT!</span></td>
+      <td>{{product.shortDescription}}</td>
+      <td>{{product.price | currency:"EUR":"symbol"}}</td>
+      <td>{{product.quantity}} <br><span id="few-left" *ngIf="product.quantity <= 5 && product.quantity !== 0">FEW
+          LEFT!</span></td>
+      <td>
+        <div *ngIf="product.quantity > 0" class="row">
+          <div class="col-md-12 col-sm-12">
+            <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
+            </a>
           </div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12">
-              <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
-                Edit
-              </a>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
+              Edit
+            </a>
           </div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12">
-              <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- pager -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
