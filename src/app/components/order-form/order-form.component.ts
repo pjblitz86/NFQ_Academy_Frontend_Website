@@ -13,21 +13,21 @@ import { Order } from '../../models/Order';
 export class OrderFormComponent implements OnInit {
   id: string;
   isAvailable: boolean = true;
-  order: Order = {
-    productName: ' ',
-    clientName: ' ',
-    clientContact: ' ',
-    unitPrice: 0,
-    quantityOrdered: 0,
-    totalPrice: 0
-  };
-
   product: Product = {
     image: '',
     name: '',
     shortDescription: '',
     price: 0,
     quantity: 0
+  };
+
+  order: Order = {
+    productName: '',
+    clientName: '',
+    clientContact: '',
+    unitPrice: 0,
+    quantityOrdered: 0,
+    totalPrice: 0
   };
 
   @ViewChild('orderForm')
@@ -51,6 +51,8 @@ export class OrderFormComponent implements OnInit {
         }
       }
       this.product = product;
+      this.order.productName = product.name;
+      this.order.unitPrice = product.price;
     });
   }
 
@@ -62,7 +64,7 @@ export class OrderFormComponent implements OnInit {
     this.order.totalPrice = this.order.quantityOrdered * this.product.price;
   }
 
-  onSubmitOrder({ value, valid }: { value: Order; valid: boolean }) {
+  onSubmitOrder({ valid }: { valid: boolean }) {
     if (!valid) {
       // show error flash message
       this.flashMessage.show('Please fill out the order form correctly', {
@@ -71,7 +73,7 @@ export class OrderFormComponent implements OnInit {
       });
     } else {
       // add new order
-      this.productService.newOrder(value);
+      this.productService.newOrder(this.order);
       // update available product quantity
       this.product.quantity -= this.order.quantityOrdered;
       this.productService.updateProduct(this.product);
