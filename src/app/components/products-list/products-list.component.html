@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products | productFilter: searchTerm">
+      <tr *ngFor="let product of pagedItems | productFilter: searchTerm">
         <td>
           <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
         </td>
@@ -59,14 +59,11 @@
     </tbody>
   </table>
 </div>
-<!-- pager -->
 
+<!-- pager -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div *ngIf="products?.length > 0" class="collapse navbar-collapse" id="navbarNav">
     <ul *ngIf="pager.pages && pager.pages.length" class="mx-auto navbar-nav pagination">
-      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(1)" class="nav-link">First</a>
-      </li>
       <li class="nav-item" [ngClass]="{disabled:pager.currentPage === 1}">
         <a (click)="setPage(1)" class="nav-link">First</a>
       </li>

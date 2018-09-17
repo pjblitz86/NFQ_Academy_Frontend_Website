@@ -1,3 +1,4 @@
+import { PagerService } from './services/pager.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -51,7 +52,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     FormsModule,
     FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

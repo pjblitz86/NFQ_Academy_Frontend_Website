@@ -46,7 +46,7 @@ export class OrderFilter implements PipeTransform {
     }
 
     return orders.filter(
-      order => order.clientName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      order => order.productName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
     );
   }
 }

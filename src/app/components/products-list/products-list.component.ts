@@ -18,6 +18,10 @@ export class ProductsListComponent implements OnInit {
   searchTerm: string;
   totalPossibleRevenue: number;
   pager: any = {};
+  // array of all items to be paged
+  private allItems: Product[];
+  // paged items
+  pagedItems: any[];
 
   constructor(
     private productService: ProductService,
@@ -31,6 +35,7 @@ export class ProductsListComponent implements OnInit {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
       this.getTotalPossibleRevenue();
+      this.allItems = this.products;
       // initialize pagination to page 1
       this.setPage(1);
     });
@@ -57,10 +62,10 @@ export class ProductsListComponent implements OnInit {
   // pagination
   setPage(page: number) {
     // get pager object from service
-    this.pager = this.pagerService.getPager(this.products.length, page);
+    this.pager = this.pagerService.getPager(this.allItems.length, page);
 
     // get current page of items
-    this.products = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }
 
