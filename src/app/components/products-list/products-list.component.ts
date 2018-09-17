@@ -4,7 +4,7 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { PagerService } from './../../services/pager.service';
 
 @Component({
   selector: 'app-products-list',
@@ -16,15 +16,14 @@ export class ProductsListComponent implements OnInit {
   products: Product[];
   product: Product;
   searchTerm: string;
-  totalProducts = 10;
-  productsPerPage = 2;
-  pageSizeOptions = [1, 2, 4];
   totalPossibleRevenue: number;
+  pager: any = {};
 
   constructor(
     private productService: ProductService,
     private router: Router,
-    private flashMessage: FlashMessagesService
+    private flashMessage: FlashMessagesService,
+    private pagerService: PagerService
   ) {}
 
   ngOnInit() {
@@ -32,6 +31,8 @@ export class ProductsListComponent implements OnInit {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
       this.getTotalPossibleRevenue();
+      // initialize pagination to page 1
+      this.setPage(1);
     });
   }
 
@@ -53,9 +54,17 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  onChangedPage(pageData: PageEvent) {}
+  // pagination
+  setPage(page: number) {
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.products.length, page);
+
+    // get current page of items
+    this.products = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
 }
 
+// search filter
 @Pipe({
   name: 'productFilter'
 })

@@ -14,53 +14,71 @@
   </div>
 </div>
 
-<table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
-  <thead class="thead-inverse">
-    <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Available</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of products | productFilter: searchTerm">
-      <td>
-        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
-      </td>
-      <td>{{product.name}}</td>
-      <td>{{product.shortDescription}}</td>
-      <td>{{product.price | currency:"EUR":"symbol"}}</td>
-      <td>{{product.quantity}}</td>
-      <td>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
-            </a>
+<div class="container">
+  <table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Available</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products | productFilter: searchTerm">
+        <td>
+          <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
+        </td>
+        <td>{{product.name}}</td>
+        <td>{{product.shortDescription}}</td>
+        <td>{{product.price | currency:"EUR":"symbol"}}</td>
+        <td>{{product.quantity}}</td>
+        <td>
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <a routerLink="order/{{product.id}}" class="btn btn-dark btn-block"><i class="fa fa-arrow-circle-o-right">Order</i>
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
-              Edit
-            </a>
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <a routerLink="/product/edit/{{product.id}}" class="btn btn-warning btn-block">
+                Edit
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12">
-            <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <button class="btn btn-danger btn-block" (click)="onDeleteClick(product.id)">Delete</button>
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<mat-paginator [length]="totalProducts" [pageSize]="productsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)">
-
-</mat-paginator>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- pager -->
+  <div *ngIf="products?.length > 0" class="row">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
+  </div>
+</div>
 
 <ng-template #noProducts>
   <hr>
