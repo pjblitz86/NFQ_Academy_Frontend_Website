@@ -9,6 +9,22 @@
   height: 16vh;
 }
 
-table {
+.products-table {
   table-layout: fixed;
+  width: 100%;
+}
+
+.products-table td:nth-child(1),
+.products-table td:nth-child(3) {
+  width: 25%;
+}
+
+.products-table td:nth-child(4),
+.products-table td:nth-child(5) {
+  width: 5%;
+}
+
+.products-table td:nth-child(2),
+.products-table td:nth-child(6) {
+  width: 20%;
 }

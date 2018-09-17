@@ -49,7 +49,7 @@
       <div class="form-group">
         <label for="price">Price</label>
         <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #price="ngModel" [ngClass]="{'is-invalid':price.errors && price.touched}"
-          [disabled]="disablePriceOnEdit" step="0.01" pattern="^[0-9]+(\.([0-9]{1,2})?)?$" required>
+          [disabled]="disablePriceOnEdit" step="0.01" pattern="^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$" required>
         <div [hidden]="!price.errors?.required" class="invalid-feedback">
           Price required!
         </div>

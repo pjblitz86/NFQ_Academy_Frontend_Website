@@ -15,7 +15,7 @@
 </div>
 
 <div class="container">
-  <table *ngIf="products?.length > 0; else noProducts" class="table table-striped">
+  <table *ngIf="products?.length > 0; else noProducts" class="table table-striped products-table">
     <thead class="thead-inverse">
       <tr>
         <th>Image</th>
@@ -23,7 +23,7 @@
         <th>Description</th>
         <th>Price</th>
         <th>Available</th>
-        <th></th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -58,27 +58,33 @@
       </tr>
     </tbody>
   </table>
-  <!-- pager -->
-  <div *ngIf="products?.length > 0" class="row">
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(1)">First</a>
+</div>
+<!-- pager -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div *ngIf="products?.length > 0" class="collapse navbar-collapse" id="navbarNav">
+    <ul *ngIf="pager.pages && pager.pages.length" class="mx-auto navbar-nav pagination">
+      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)" class="nav-link">First</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)" class="nav-link">First</a>
       </li>
-      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a (click)="setPage(page)">{{page}}</a>
+      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)" class="nav-link">Previous</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      <li class="nav-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)" class="nav-link">{{page}}</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.totalPages)">Last</a>
+      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)" class="nav-link">Next</a>
+      </li>
+      <li class="nav-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)" class="nav-link">Last</a>
       </li>
     </ul>
   </div>
-</div>
+</nav>
 
 <ng-template #noProducts>
   <hr>
