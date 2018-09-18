@@ -14,9 +14,7 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
 import { OrdersListComponent, OrderFilter } from './components/orders-list/orders-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SearchComponent } from './components/search/search.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -36,9 +34,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     OrdersListComponent,
     LoginComponent,
     RegisterComponent,
-    SettingsComponent,
     NotFoundComponent,
-    SearchComponent,
     OrderFormComponent,
     ProductFilter,
     OrderFilter

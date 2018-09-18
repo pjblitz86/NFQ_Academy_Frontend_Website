@@ -12,9 +12,10 @@
 </div>
 
 
-<table *ngIf="orders?.length > 0; else noOrders" class="table table-sm table-hover table-striped table-bordered">
+<table *ngIf="orders?.length > 0; else noOrders" class="table table-sm table-hover table-striped table-bordered table-orders">
   <thead class="thead-inverse">
     <tr class="table-success">
+      <th>No</th>
       <th>Client</th>
       <th>Contact</th>
       <th>Product Name</th>
@@ -25,6 +26,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let order of orders | orderFilter: searchTerm" class="table-light">
+      <td></td>
       <td>{{order.clientName}}</td>
       <td>{{order.clientContact}}</td>
       <td>{{order.productName}}</td>

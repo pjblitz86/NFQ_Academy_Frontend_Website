@@ -63,3 +63,13 @@ a {
 .products-table td:nth-child(6) {
   width: 20%;
 }
+
+/* orders table numeration */
+.table-orders {
+  counter-reset: serial-number; /* Set the serial number counter to 0 */
+}
+
+.table-orders td:first-child:before {
+  counter-increment: serial-number; /* Increment the serial number counter */
+  content: counter(serial-number); /* Display the counter */
+}

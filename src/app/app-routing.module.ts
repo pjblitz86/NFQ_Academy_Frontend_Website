@@ -3,7 +3,6 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'product/edit/:id', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersListComponent, canActivate: [AuthGuard] },
   { path: 'order/:id', component: OrderFormComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 
