@@ -29,7 +29,7 @@
   <tbody>
     <tr *ngFor="let product of pagedItems | productFilter: searchTerm">
       <td>
-        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png';" alt="image not available">
+        <img id="productImage" src="{{product.image}}" onError="this.src='../../../assets/img/download.png'" alt="image not available">
       </td>
       <td id="product-name">{{product.name}} <br><span id="sold-out" *ngIf="product.quantity == 0">SOLD-OUT!</span></td>
       <td>{{product.shortDescription}}</td>

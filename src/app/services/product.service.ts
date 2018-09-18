@@ -9,7 +9,6 @@ import { map } from 'rxjs/operators';
 
 import { Product } from '../models/Product';
 import { Order } from './../models/Order';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,6 @@ export class ProductService {
   productDoc: AngularFirestoreDocument<Product>;
   products: Observable<Product[]>;
   product: Observable<Product>;
-  private _products: BehaviorSubject<Product[]>;
-  latestEntry: any;
 
   // orders properties
   ordersCollection: AngularFirestoreCollection<Order>;
@@ -98,51 +95,5 @@ export class ProductService {
   deleteProduct(id: string) {
     this.productDoc = this.afs.collection('products').doc(id);
     this.productDoc.delete();
-  }
-
-  // PAGINATION WITH FIREBASE2 - TRYING TO IMPLEMENT
-  first() {
-    this._products = new BehaviorSubject([]);
-    this.products = this._products.asObservable();
-
-    const productsRef = this.getCollection('products', ref =>
-      ref.orderBy('products', 'asc').limit(6)
-    ).subscribe(data => {
-      this.latestEntry = data[data.length - 1].doc;
-      this._products.next(data);
-    });
-  }
-
-  // get collection for pagination with firebase
-  getCollection(ref, queryFn?): Observable<any[]> {
-    return this.afs
-      .collection(ref, queryFn)
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            const doc = a.payload.doc;
-            return { id, ...data, doc };
-          });
-        })
-      );
-  }
-
-  next() {
-    const scoresRef = this.getCollection('products', ref =>
-      ref
-        .orderBy('products', 'asc')
-        // Now you can use the latestEntry to query with startAfter
-        .startAfter(this.latestEntry)
-        .limit(6)
-    ).subscribe(data => {
-      if (data.length) {
-        // And save it again for more queries
-        this.latestEntry = data[data.length - 1].doc;
-        this._products.next(data);
-      }
-    });
   }
 }

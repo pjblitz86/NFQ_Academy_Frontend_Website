@@ -17,6 +17,7 @@ export class ProductsListComponent implements OnInit {
   product: Product;
   searchTerm: string;
   totalPossibleRevenue: number;
+  // pager object
   pager: any = {};
   // array of all items to be paged
   private allItems: Product[];
@@ -59,7 +60,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  // pagination
+  // PAGINATION CALL
   setPage(page: number) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.allItems.length, page);

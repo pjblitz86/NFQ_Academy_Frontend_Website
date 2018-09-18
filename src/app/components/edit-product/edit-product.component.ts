@@ -19,8 +19,6 @@ export class EditProductComponent implements OnInit {
     quantity: 0
   };
 
-  disablePriceOnEdit: boolean = false;
-
   @ViewChild('productEditForm')
   form: any;
 

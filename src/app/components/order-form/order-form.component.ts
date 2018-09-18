@@ -12,7 +12,6 @@ import { Order } from '../../models/Order';
 })
 export class OrderFormComponent implements OnInit {
   id: string;
-  isAvailable: boolean = true;
   product: Product = {
     image: '',
     name: '',
@@ -45,11 +44,6 @@ export class OrderFormComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     // get product
     this.productService.getProduct(this.id).subscribe(product => {
-      if (product != null) {
-        if (product.quantity > 0) {
-          this.isAvailable = true;
-        }
-      }
       this.product = product;
       this.order.productName = product.name;
       this.order.unitPrice = product.price;

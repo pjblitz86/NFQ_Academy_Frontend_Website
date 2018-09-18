@@ -18,10 +18,6 @@ export class OrdersListComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    // render all products from firebase
-    this.productService.getProducts().subscribe(products => {
-      this.products = products;
-    });
     // render all orders from firebase
     this.productService.getOrders().subscribe(orders => {
       this.orders = orders;

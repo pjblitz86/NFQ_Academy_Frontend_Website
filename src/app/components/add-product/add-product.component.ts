@@ -18,8 +18,6 @@ export class AddProductComponent implements OnInit {
     quantity: 0
   };
 
-  disablePriceOnAdd: boolean = false;
-
   @ViewChild('productForm')
   form: any;
 
@@ -32,10 +30,6 @@ export class AddProductComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit({ value, valid }: { value: Product; valid: boolean }) {
-    if (this.disablePriceOnAdd) {
-      value.price = 0;
-    }
-
     if (!valid) {
       // show error flash message
       this.flashMessage.show('Please fill out the form correctly', {
